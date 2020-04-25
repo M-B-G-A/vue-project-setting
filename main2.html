@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DayPick</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <!-- {{ getData() }} -->
+            {{fixed_day_data}}
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        
+        var app = new Vue({
+            el: '#app',
+            data: () => {
+                return {
+                    'fixed_day_data': []
+                }
+            },
+            // created() {
+            // var vm = this;
+            // axios.get('https://daypickapi.mbga.dev/show/day/20200101')
+            //     .then(response => {
+            //         this.fixed_day_data = response.data;
+            //         Console.log(response.data);
+            //     })
+            //     .catch(error => {
+            //         console.log(error);
+            //     })
+            // },
+            // {baseURL} : 'https://daypickapi.mbga.dev/show/day',
+            created() {
+                this.getData();
+                // this.axios();
+            },
+            methods: {
+                getData: function () {
+                    const baseURI = 'https://daypickapi.mbga.dev/show/day';
+                    var today = new Date().toISOString().substr(0, 10).replace('T', ' ').replace('-','').replace('-','');
+                    var today2 = new Date();
+                    console.log(today2)
+                    // console.log(today2)
+                    axios.get(`${baseURI}/${today}`)
+                        .then(response => {
+                            this.fixed_day_data = response.data;
+                            console.log(response.data);
+                            console.log(this.fixed_day_data);
+                            return response.data
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+
+                }
+            }
+
+        })
+
+
+    </script>
+
+</body>
+
+</html>
